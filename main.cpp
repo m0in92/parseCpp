@@ -8,6 +8,8 @@ int main() {
     DataFrame dataFrame;
     dataFrame = read_csv(filePath);
 
+    dataFrame.transpose();
+
     // Display dataframe
     for (int i=0; i < dataFrame.get_data().size(); i++) {
         std::vector<std::string> rowVectorForDisplay = dataFrame.get_data()[i];
@@ -17,5 +19,6 @@ int main() {
         std::cout << std::endl;
     }
     std::cout << dataFrame.get_colname()[2] << std::endl;
+    std::cout << dataFrame.get_index()[2] << std::endl;
     return 0;
 }

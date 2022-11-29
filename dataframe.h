@@ -11,12 +11,16 @@
 class DataFrame{
 public:
     // Accessor Functions
+    std::vector<std::string> get_index() {return index;}
     std::vector<std::string> get_colname() {return colName;}
     std::vector<std::vector<std::string>> get_data() {return data;}
     // Modifier Functions
+    void set_index(std::vector<std::string> inputIndex) {index = inputIndex;}
     void set_colname(std::vector<std::string> inputColName) {colName = inputColName;}
     void set_data(std::vector<std::vector<std::string>> inputData) {data = inputData;}
+    void transpose();
 private:
+    std::vector<std::string> index;
     std::vector<std::string> colName;
     std::vector<std::vector<std::string>> data;
 };

@@ -6,8 +6,7 @@
 int main() {
     std::string filePath = "C:\\Users\\moina\\CLionProjects\\csv-data-parse-example\\Book1.csv";
     DataFrame dataFrame;
-    dataFrame.set_data(read_csv(filePath));
-//    std::vector<std::vector<std::string>> dataFrame = read_csv(filePath);
+    dataFrame = read_csv(filePath);
 
     // Display dataframe
     for (int i=0; i < dataFrame.get_data().size(); i++) {
@@ -17,5 +16,6 @@ int main() {
         }
         std::cout << std::endl;
     }
+    std::cout << dataFrame.get_colname()[2] << std::endl;
     return 0;
 }

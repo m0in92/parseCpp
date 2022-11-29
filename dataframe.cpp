@@ -9,7 +9,7 @@
 #include "dataframe.h"
 
 
-std::vector<std::vector<std::string>> read_csv(std::string filePath, int colNameIndex) {
+DataFrame read_csv(std::string filePath, int colNameIndex) {
     /*
      * This function opens and reads the csv file.
      * */
@@ -19,7 +19,8 @@ std::vector<std::vector<std::string>> read_csv(std::string filePath, int colName
 
     // initialize the dataframe and line
     std::string line;
-    std::vector<std::vector<std::string>> dataFrame;
+    std::vector<std::vector<std::string>> dataFrameTemp;
+    std::vector<std::string> colNameTemp;
 
     while (std::getline(inputFile, line)) {
         // initialize row entry (single entry within a row, rowInput(entire row), and rowVector (vector containing all
@@ -31,7 +32,10 @@ std::vector<std::vector<std::string>> read_csv(std::string filePath, int colName
             rowVector.push_back(rowEntry);
         }
         // add rowVector to the dataframe vector.
-        dataFrame.push_back(rowVector);
+        dataFrameTemp.push_back(rowVector);
     }
+    DataFrame dataFrame;
+    dataFrame.set_colname(dataFrameTemp[colNameIndex]);
+    dataFrame.set_data(dataFrameTemp);
     return dataFrame;
 }

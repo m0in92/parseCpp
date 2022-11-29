@@ -14,11 +14,19 @@ public:
     std::vector<std::string> get_index() {return index;}
     std::vector<std::string> get_colname() {return colName;}
     std::vector<std::vector<std::string>> get_data() {return data;}
+    int get_col_index(std::string);
+    std::vector<std::string> get_col(std::string);
+    std::vector<double> get_col_to_double(std::string);
     // Modifier Functions
     void set_index(std::vector<std::string> inputIndex) {index = inputIndex;}
     void set_colname(std::vector<std::string> inputColName) {colName = inputColName;}
     void set_data(std::vector<std::vector<std::string>> inputData) {data = inputData;}
     void transpose();
+    // Display functions
+    void display_index();
+    void display_colnames();
+    void display_data();
+    void display_dataframes();
 private:
     std::vector<std::string> index;
     std::vector<std::string> colName;

@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 
-class DataFrame{
+class DataFrames{
 public:
     // Accessor Functions
     std::vector<std::string> get_index() {return index;}
@@ -33,7 +33,7 @@ private:
     std::vector<std::vector<std::string>> data;
 };
 
-DataFrame read_csv(std::string, int colNameIndex = 0);
+DataFrames read_csv(std::string, int colNameIndex = 0);
 
 
 #endif //CSV_DATA_PARSE_EXAMPLE_DATAFRAME_H

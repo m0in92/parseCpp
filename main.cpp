@@ -5,14 +5,15 @@
 #include "filenames.h"
 
 int main() {
-    DataFrame dataFrame;
-    dataFrame = read_csv(filePath);
+    DataFrames df;
+    df = read_csv(filePath2);
+    std::vector<double> df_col = df.get_col_to_double("Value");
 
-    dataFrame.display_dataframes();
+    std::cout << df_col[3] << std::endl;
 
-    std::vector<std::string> df_col = dataFrame.get_col("col2");
+    std::cout << df.get_index()[2] << std::endl;
 
-//    std::cout << std::stod(df_col[1]) << std::endl;
+    df.display_dataframes();
 
     return 0;
 }

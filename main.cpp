@@ -7,13 +7,7 @@
 int main() {
     DataFrames df;
     df = read_csv(filePath2);
-    std::vector<double> df_col = df.get_col_to_double("Value");
-
-    std::cout << df_col[3] << std::endl;
-
-    std::cout << df.get_index()[2] << std::endl;
-
-    df.display_dataframes();
+    std::cout << std::stod(df.get_value("Value", "Reference Temperature", "string"));
 
     return 0;
 }

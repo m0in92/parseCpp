@@ -11,11 +11,13 @@
 class DataFrames{
 public:
     // Accessor Functions
-    std::vector<std::string> get_index() {return index;}
+    std::vector<std::string> get_indexname() {return index;}
     std::vector<std::string> get_colname() {return colName;}
     std::vector<std::vector<std::string>> get_data() {return data;}
     int get_col_index(std::string);
-    std::vector<std::string> get_col(std::string);
+    int get_index_index(std::string);
+    DataFrames get_col(std::string);
+    std::string get_value(const std::string inputColName, const std::string inputIndexName, const std::string dataType);
     std::vector<double> get_col_to_double(std::string);
     // Modifier Functions
     void set_index(std::vector<std::string> inputIndex) {index = inputIndex;}
@@ -33,7 +35,7 @@ private:
     std::vector<std::vector<std::string>> data;
 };
 
-DataFrames read_csv(std::string, int colNameIndex = 0);
+DataFrames read_csv(std::string, int colNameIndex = 0, int indexRow = 0);
 
 
 #endif //CSV_DATA_PARSE_EXAMPLE_DATAFRAME_H

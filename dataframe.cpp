@@ -38,28 +38,56 @@ int DataFrames::get_col_index(std::string inputColName) {
     return colIndex;
 }
 
-std::vector<std::string> DataFrames::get_col(std::string inputColName) {
+int DataFrames::get_index_index(std::string inputIndexName) {
+    int rowIndex = -1;
+    for (int i=0; i< index.size(); i++) {
+        if (index[i].compare(inputIndexName) == 0) {
+            rowIndex = i;
+        }
+    }
+    if (rowIndex == -1)
+        throw std::invalid_argument("Invalid index name.");
+    return rowIndex;
+}
+
+DataFrames DataFrames::get_col(std::string inputColName) {
     try{
         int colIndex = DataFrames::get_col_index(inputColName);
-        std::vector<std::string> colTemp;
+        std::vector<std::vector<std::string>> rowTemp;
+//        std::vector<std::string> colTemp;
         for (int i=0; i<data.size(); i++) {
+            std::vector<std::string> colTemp;
             colTemp.push_back(data[i][colIndex]);
+            rowTemp.push_back(colTemp);
         }
-        return colTemp;
+        DataFrames dfTemp;
+        dfTemp.set_data(rowTemp);
+        dfTemp.set_index(index);
+        std::vector<std::string> colNameTemp;
+        colNameTemp.push_back(inputColName);
+        dfTemp.set_colname(colNameTemp);
+        return dfTemp;
     }
     catch (const std::invalid_argument& e) {
         std::cout << "invalid column name." << std::endl;
     }
 }
 
-std::vector<double> DataFrames::get_col_to_double(std::string inputColName) {
-    const std::vector<std::string> tempColinString = DataFrames::get_col(inputColName);
-    std::vector<double> doubleVector(tempColinString.size());
-    std::transform(tempColinString.begin(), tempColinString.end(), doubleVector.begin(), [](const std::string& val) {
-        return std::stod(val);
-    });
-    return doubleVector;
+std::string DataFrames::get_value(const std::string inputcolName, const std::string inputIndexName, const std::string dataType) {
+    DataFrames df = DataFrames::get_col(inputcolName);
+    int indexIndex = DataFrames::get_index_index(inputIndexName);
+    const int colIndex = 0;
+    return df.get_data()[indexIndex][colIndex];
 }
+
+//std::vector<double> DataFrames::get_col_to_double(std::string inputColName) {
+//    const std::vector<std::string> tempColinString = DataFrames::get_col(inputColName);
+//    std::vector<double> doubleVector(tempColinString.size());
+//    std::transform(tempColinString.begin(), tempColinString.end(), doubleVector.begin(), [](const std::string& val) {
+//        return std::stod(val);
+//    });
+//    return doubleVector;
+//}
 
 void DataFrames::display_colnames() {
     std::cout << " "; // initial delimiters
@@ -82,7 +110,7 @@ void DataFrames::display_dataframes() {
     }
 }
 
-DataFrames read_csv(std::string filePath, int colNameIndex) {
+DataFrames read_csv(std::string filePath, int colNameIndex, int indexRow) {
     /*
      * This function opens and reads the csv file.
      * */
@@ -103,15 +131,22 @@ DataFrames read_csv(std::string filePath, int colNameIndex) {
         std::string  rowEntry = "";
         std::stringstream rowInput(line);
         std::vector<std::string> rowVector;
+        int colIndex = 0;
         while (std::getline(rowInput, rowEntry, ',')) {
-            rowVector.push_back(rowEntry);
+            if (colIndex == indexRow){
+                if (index > 0)
+                    indexTemp.push_back(rowEntry);
+            }
+            else
+                rowVector.push_back(rowEntry);
+            colIndex++;
         }
         if (index==colNameIndex) {
             colNameTemp = rowVector; // add colname
         }
         else {
             dataFrameTemp.push_back(rowVector); // add rowVector to the dataframe vector.
-            indexTemp.push_back(std::to_string(index-1));
+//            indexTemp.push_back(std::to_string(index-1));
         }
         index++;
         line = "";
